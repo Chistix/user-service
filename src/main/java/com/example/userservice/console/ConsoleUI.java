@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class ConsoleUI {
-    // ===== Константы =====
+
     private static final String MENU = """
 === User Service (Hibernate + PostgreSQL) ===
 1. Создать пользователя
@@ -20,22 +20,18 @@ public class ConsoleUI {
 
     public ConsoleUI(Scanner scanner) { this.scanner = scanner; }
 
-
     public void printTitle(String title) { println(title); }
     public void printMenu() { println(MENU); }
-
 
     public int readMenuChoice() {
         print("Выберите пункт: ");
         return readIntOrDefault(-1);
     }
 
-
     public long readId(String prompt) {
         print(prompt);
         return readLongOrDefault(-1);
     }
-
 
     public String readNonEmpty(String prompt) {
         while (true) {

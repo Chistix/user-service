@@ -82,3 +82,4 @@ public class UserDaoImpl implements UserDao {
         T apply(Session session);
     }
 }
+

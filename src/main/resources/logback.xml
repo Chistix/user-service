@@ -1,4 +1,5 @@
 <configuration>
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%msg%n</pattern>
@@ -16,4 +17,5 @@
     <root level="ERROR">
         <appender-ref ref="STDOUT"/>
     </root>
+
 </configuration>
