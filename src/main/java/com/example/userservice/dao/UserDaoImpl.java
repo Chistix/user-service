@@ -3,15 +3,29 @@ package com.example.userservice.dao;
 import com.example.userservice.entity.User;
 import com.example.userservice.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;              // <— добавили
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
     private static final Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
+
+    private final SessionFactory sessionFactory; // <— добавили поле
+
+    // Боевой конструктор: как и раньше, берём фабрику из HibernateUtil
+    public UserDaoImpl() {
+        this.sessionFactory = HibernateUtil.getSessionFactory();
+    }
+
+    // Тестовый/альтернативный конструктор: позволяет передать тестовую фабрику (Testcontainers)
+    public UserDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public User create(User user) {
@@ -23,14 +37,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findById(long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {            // <— было HibernateUtil.getSessionFactory()
             return Optional.ofNullable(session.get(User.class, id));
         }
     }
 
     @Override
     public List<User> findAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {            // <— было HibernateUtil.getSessionFactory()
             return session.createQuery("from User", User.class).getResultList();
         }
     }
@@ -55,7 +69,7 @@ public class UserDaoImpl implements UserDao {
 
     private <T> T doInTransaction(HibernateWork<T> work) {
         Transaction tx = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {            // <— было HibernateUtil.getSessionFactory()
             tx = session.beginTransaction();
             T result = work.apply(session);
             tx.commit();
@@ -82,4 +96,3 @@ public class UserDaoImpl implements UserDao {
         T apply(Session session);
     }
 }
-
