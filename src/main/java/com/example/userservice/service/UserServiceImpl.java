@@ -12,14 +12,12 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
-    // Константы
+
     private static final String USER_NOT_FOUND = "User not found: ";
     private static final String EMAIL_EXISTS = "Email already exists: ";
 
-    // Поля
     private final UserRepository userRepository;
 
-    // Публичные методы
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

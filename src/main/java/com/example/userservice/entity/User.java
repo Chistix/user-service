@@ -3,7 +3,6 @@ package com.example.userservice.entity;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
 
-// ВАЖНО: импорты из jakarta.persistence
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
