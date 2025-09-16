@@ -1,12 +1,16 @@
 package com.example.userservice.service;
 
-import com.example.userservice.entity.User;
+import com.example.userservice.dto.UserDto;
+import com.example.userservice.dto.UserUpsertDto;
+
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
-    User create(User u);
-    Optional<User> findById(Long id);
-    List<User> findAll();
-    void deleteById(Long id);
+
+    List<UserDto> findAll();
+    UserDto findById(Long id);
+    UserDto create(UserUpsertDto dto);
+    UserDto update(Long id, UserUpsertDto dto);
+    void delete(Long id);
+
 }
